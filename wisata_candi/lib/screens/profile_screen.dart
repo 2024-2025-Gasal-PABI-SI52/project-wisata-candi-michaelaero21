@@ -9,10 +9,24 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // TODO: 1. Deklarasikan variabel yang dibutuhkan
-  bool isSignedIn = true;
-  String fullName = 'Michael';
-  String userName = 'Mike';
-  int favoriteCandiCount = 0;
+  bool isSignedIn = false;
+  String fullName = 'Krisna Riyandi';
+  String userName = 'Krisna';
+  int favoritCandiCount = 0;
+
+  //TODO: 5. Implementasi fungsi SignIn
+  void SignIn() {
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
+
+  //TODO: 6. Implementasi fungsi SignOut
+  void SignOut() {
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +42,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                // TODO 2. Buat bagian ProfileHeader yang berisi gambar profil
+                //Tombol Back Custom
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple[100]?.withOpacity(0.8),
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                    ),
+                  ),
+                ),
+                //TODO: 2. buat bagian Profile Header(isinya gambar profil)
                 Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 200 - 50),
+                    padding: const EdgeInsets.only(top: 150),
                     child: Stack(
                       alignment: Alignment.bottomRight,
                       children: [
@@ -51,16 +82,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         if (isSignedIn)
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.camera_alt,
-                                color: Colors.deepPurple[50],
-                              )),
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.camera_alt,
+                              color: Colors.deepPurple[50],
+                            ),
+                          ),
                       ],
                     ),
                   ),
                 ),
-                // TODO 3. Buat bagian ProfileInfo yang berisi info profil
+                //TODO: 3. Buat bagian profile info (isinya info profil)
+                //Baris 1 Profile Info Pengguna
                 const SizedBox(
                   height: 20,
                 ),
@@ -73,6 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   children: [
                     SizedBox(
+                      //media query untuk membagi 3 dalam satu layar
                       width: MediaQuery.of(context).size.width / 3,
                       child: const Row(
                         children: [
@@ -98,6 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     )),
                   ],
                 ),
+                //Baris 2 Profile Info Nama
                 const SizedBox(
                   height: 4,
                 ),
@@ -110,6 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   children: [
                     SizedBox(
+                      //media query untuk membagi 3 dalam satu layar
                       width: MediaQuery.of(context).size.width / 3,
                       child: const Row(
                         children: [
@@ -133,13 +169,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ': $fullName',
                       style: const TextStyle(fontSize: 18),
                     )),
-                    if (isSignedIn) const Icon(Icons.edit)
+                    if (isSignedIn) const Icon(Icons.edit),
                   ],
                 ),
-                // TODO 4. Buat ProfileActions yang berisi TextButton signin/signout
+                //Baris 3 Profile Info Favorite
+                const SizedBox(
+                  height: 4,
+                ),
+                Divider(
+                  color: Colors.deepPurple[100],
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      //media query untuk membagi 3 dalam satu layar
+                      width: MediaQuery.of(context).size.width / 3,
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            'Favorit',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        child: Text(
+                      ': $favoritCandiCount',
+                      style: const TextStyle(fontSize: 18),
+                    )),
+                  ],
+                ),
+                //TODO: 4. Buat bagian profile action (isnya tombol signin/ signout)
+                const SizedBox(
+                  height: 4,
+                ),
+                Divider(
+                  color: Colors.deepPurple[100],
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                isSignedIn
+                    ? TextButton(
+                        onPressed: SignOut, child: const Text('Sign Out'))
+                    : TextButton(
+                        onPressed: SignIn, child: const Text('Sign In'))
               ],
             ),
-          )
+          ),
         ],
       ),
     );
